@@ -14,15 +14,17 @@
 		6003F598195388D20070C39A /* InfoPlist.strings in Resources */ = {isa = PBXBuildFile; fileRef = 6003F596195388D20070C39A /* InfoPlist.strings */; };
 		6003F59A195388D20070C39A /* main.m in Sources */ = {isa = PBXBuildFile; fileRef = 6003F599195388D20070C39A /* main.m */; };
 		6003F59E195388D20070C39A /* DSOAppDelegate.m in Sources */ = {isa = PBXBuildFile; fileRef = 6003F59D195388D20070C39A /* DSOAppDelegate.m */; };
-		6003F5A1195388D20070C39A /* Main_iPhone.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 6003F59F195388D20070C39A /* Main_iPhone.storyboard */; };
-		6003F5A4195388D20070C39A /* Main_iPad.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 6003F5A2195388D20070C39A /* Main_iPad.storyboard */; };
-		6003F5A7195388D20070C39A /* DSOViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 6003F5A6195388D20070C39A /* DSOViewController.m */; };
+		6003F5A1195388D20070C39A /* Main.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 6003F59F195388D20070C39A /* Main.storyboard */; };
 		6003F5A9195388D20070C39A /* Images.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 6003F5A8195388D20070C39A /* Images.xcassets */; };
 		6003F5B0195388D20070C39A /* XCTest.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 6003F5AF195388D20070C39A /* XCTest.framework */; };
 		6003F5B1195388D20070C39A /* Foundation.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 6003F58D195388D20070C39A /* Foundation.framework */; };
 		6003F5B2195388D20070C39A /* UIKit.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 6003F591195388D20070C39A /* UIKit.framework */; };
 		6003F5BA195388D20070C39A /* InfoPlist.strings in Resources */ = {isa = PBXBuildFile; fileRef = 6003F5B8195388D20070C39A /* InfoPlist.strings */; };
 		6003F5BC195388D20070C39A /* Tests.m in Sources */ = {isa = PBXBuildFile; fileRef = 6003F5BB195388D20070C39A /* Tests.m */; };
+		B2C91F4E1AADFBEA00A2D7FE /* DSOCampaignDetailViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = B2C91F471AADFBEA00A2D7FE /* DSOCampaignDetailViewController.m */; };
+		B2C91F4F1AADFBEA00A2D7FE /* DSOCampaignListViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = B2C91F491AADFBEA00A2D7FE /* DSOCampaignListViewController.m */; };
+		B2C91F501AADFBEA00A2D7FE /* DSOLoginViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = B2C91F4B1AADFBEA00A2D7FE /* DSOLoginViewController.m */; };
+		B2C91F511AADFBEA00A2D7FE /* DSOReportbackViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = B2C91F4D1AADFBEA00A2D7FE /* DSOReportbackViewController.m */; };
 		CDA904B8F901E8CE99C73374 /* libPods-Tests.a in Frameworks */ = {isa = PBXBuildFile; fileRef = 3D2D1A194036896A26EB6C45 /* libPods-Tests.a */; };
 /* End PBXBuildFile section */
 
@@ -51,10 +53,7 @@
 		6003F59B195388D20070C39A /* SlothKit-Prefix.pch */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = "SlothKit-Prefix.pch"; sourceTree = "<group>"; };
 		6003F59C195388D20070C39A /* DSOAppDelegate.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = DSOAppDelegate.h; sourceTree = "<group>"; };
 		6003F59D195388D20070C39A /* DSOAppDelegate.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = DSOAppDelegate.m; sourceTree = "<group>"; };
-		6003F5A0195388D20070C39A /* Base */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; name = Base; path = Base.lproj/Main_iPhone.storyboard; sourceTree = "<group>"; };
-		6003F5A3195388D20070C39A /* Base */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; name = Base; path = Base.lproj/Main_iPad.storyboard; sourceTree = "<group>"; };
-		6003F5A5195388D20070C39A /* DSOViewController.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = DSOViewController.h; sourceTree = "<group>"; };
-		6003F5A6195388D20070C39A /* DSOViewController.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = DSOViewController.m; sourceTree = "<group>"; };
+		6003F5A0195388D20070C39A /* Base */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; name = Base; path = Base.lproj/Main.storyboard; sourceTree = "<group>"; };
 		6003F5A8195388D20070C39A /* Images.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = Images.xcassets; sourceTree = "<group>"; };
 		6003F5AE195388D20070C39A /* Tests.xctest */ = {isa = PBXFileReference; explicitFileType = wrapper.cfbundle; includeInIndex = 0; path = Tests.xctest; sourceTree = BUILT_PRODUCTS_DIR; };
 		6003F5AF195388D20070C39A /* XCTest.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = XCTest.framework; path = Library/Frameworks/XCTest.framework; sourceTree = DEVELOPER_DIR; };
@@ -64,6 +63,14 @@
 		606FC2411953D9B200FFA9A0 /* Tests-Prefix.pch */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = "Tests-Prefix.pch"; sourceTree = "<group>"; };
 		63456CCD715A88F9D35D04A4 /* SlothKit.podspec */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text; name = SlothKit.podspec; path = ../SlothKit.podspec; sourceTree = "<group>"; };
 		8F9D77C83075C189FFDB9FD3 /* Pods-SlothKit.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-SlothKit.release.xcconfig"; path = "Pods/Target Support Files/Pods-SlothKit/Pods-SlothKit.release.xcconfig"; sourceTree = "<group>"; };
+		B2C91F461AADFBEA00A2D7FE /* DSOCampaignDetailViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = DSOCampaignDetailViewController.h; sourceTree = "<group>"; };
+		B2C91F471AADFBEA00A2D7FE /* DSOCampaignDetailViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = DSOCampaignDetailViewController.m; sourceTree = "<group>"; };
+		B2C91F481AADFBEA00A2D7FE /* DSOCampaignListViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = DSOCampaignListViewController.h; sourceTree = "<group>"; };
+		B2C91F491AADFBEA00A2D7FE /* DSOCampaignListViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = DSOCampaignListViewController.m; sourceTree = "<group>"; };
+		B2C91F4A1AADFBEA00A2D7FE /* DSOLoginViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = DSOLoginViewController.h; sourceTree = "<group>"; };
+		B2C91F4B1AADFBEA00A2D7FE /* DSOLoginViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = DSOLoginViewController.m; sourceTree = "<group>"; };
+		B2C91F4C1AADFBEA00A2D7FE /* DSOReportbackViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = DSOReportbackViewController.h; sourceTree = "<group>"; };
+		B2C91F4D1AADFBEA00A2D7FE /* DSOReportbackViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = DSOReportbackViewController.m; sourceTree = "<group>"; };
 		BC84F951949C865E2C0B02B0 /* README.md */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = net.daringfireball.markdown; name = README.md; path = ../README.md; sourceTree = "<group>"; };
 		FB6E9892D73A3D793AE62247 /* Pods-Tests.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-Tests.release.xcconfig"; path = "Pods/Target Support Files/Pods-Tests/Pods-Tests.release.xcconfig"; sourceTree = "<group>"; };
 		FCB741313F08999ADD910F73 /* LICENSE */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text; name = LICENSE; path = ../LICENSE; sourceTree = "<group>"; };
@@ -145,10 +152,15 @@
 			children = (
 				6003F59C195388D20070C39A /* DSOAppDelegate.h */,
 				6003F59D195388D20070C39A /* DSOAppDelegate.m */,
-				6003F59F195388D20070C39A /* Main_iPhone.storyboard */,
-				6003F5A2195388D20070C39A /* Main_iPad.storyboard */,
-				6003F5A5195388D20070C39A /* DSOViewController.h */,
-				6003F5A6195388D20070C39A /* DSOViewController.m */,
+				6003F59F195388D20070C39A /* Main.storyboard */,
+				B2C91F461AADFBEA00A2D7FE /* DSOCampaignDetailViewController.h */,
+				B2C91F471AADFBEA00A2D7FE /* DSOCampaignDetailViewController.m */,
+				B2C91F481AADFBEA00A2D7FE /* DSOCampaignListViewController.h */,
+				B2C91F491AADFBEA00A2D7FE /* DSOCampaignListViewController.m */,
+				B2C91F4A1AADFBEA00A2D7FE /* DSOLoginViewController.h */,
+				B2C91F4B1AADFBEA00A2D7FE /* DSOLoginViewController.m */,
+				B2C91F4C1AADFBEA00A2D7FE /* DSOReportbackViewController.h */,
+				B2C91F4D1AADFBEA00A2D7FE /* DSOReportbackViewController.m */,
 				6003F5A8195388D20070C39A /* Images.xcassets */,
 				6003F594195388D20070C39A /* Supporting Files */,
 			);
@@ -276,9 +288,8 @@
 			isa = PBXResourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
-				6003F5A4195388D20070C39A /* Main_iPad.storyboard in Resources */,
 				6003F5A9195388D20070C39A /* Images.xcassets in Resources */,
-				6003F5A1195388D20070C39A /* Main_iPhone.storyboard in Resources */,
+				6003F5A1195388D20070C39A /* Main.storyboard in Resources */,
 				6003F598195388D20070C39A /* InfoPlist.strings in Resources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
@@ -361,8 +372,11 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				B2C91F4E1AADFBEA00A2D7FE /* DSOCampaignDetailViewController.m in Sources */,
 				6003F59E195388D20070C39A /* DSOAppDelegate.m in Sources */,
-				6003F5A7195388D20070C39A /* DSOViewController.m in Sources */,
+				B2C91F501AADFBEA00A2D7FE /* DSOLoginViewController.m in Sources */,
+				B2C91F511AADFBEA00A2D7FE /* DSOReportbackViewController.m in Sources */,
+				B2C91F4F1AADFBEA00A2D7FE /* DSOCampaignListViewController.m in Sources */,
 				6003F59A195388D20070C39A /* main.m in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
@@ -394,20 +408,12 @@
 			name = InfoPlist.strings;
 			sourceTree = "<group>";
 		};
-		6003F59F195388D20070C39A /* Main_iPhone.storyboard */ = {
+		6003F59F195388D20070C39A /* Main.storyboard */ = {
 			isa = PBXVariantGroup;
 			children = (
 				6003F5A0195388D20070C39A /* Base */,
 			);
-			name = Main_iPhone.storyboard;
-			sourceTree = "<group>";
-		};
-		6003F5A2195388D20070C39A /* Main_iPad.storyboard */ = {
-			isa = PBXVariantGroup;
-			children = (
-				6003F5A3195388D20070C39A /* Base */,
-			);
-			name = Main_iPad.storyboard;
+			name = Main.storyboard;
 			sourceTree = "<group>";
 		};
 		6003F5B8195388D20070C39A /* InfoPlist.strings */ = {
