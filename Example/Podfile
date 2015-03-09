@@ -1,0 +1,14 @@
+source 'https://github.com/CocoaPods/Specs.git'
+
+target 'SlothKit', :exclusive => true do
+  pod "SlothKit", :path => "../"
+end
+
+target 'Tests', :exclusive => true do
+  pod "SlothKit", :path => "../"
+
+  pod 'Specta'
+  pod 'Expecta'
+  pod 'FBSnapshotTestCase'
+  pod 'Expecta+Snapshots'
+end
