@@ -18,13 +18,18 @@
 
 @property (strong, nonatomic) NSString *selectedFilestring;
 @property (strong, nonatomic) NSString *selectedFilename;
+@property (strong, nonatomic) UIImagePickerController *picker;
 
 @property (weak, nonatomic) IBOutlet UIImageView *previewImage;
 @property (weak, nonatomic) IBOutlet UILabel *quantityLabel;
 @property (weak, nonatomic) IBOutlet UITextField *quantityTextField;
+@property (weak, nonatomic) IBOutlet UIButton *takePhotoButton;
 @property (weak, nonatomic) IBOutlet UITextView *imageURLTextField;
-- (IBAction)selectPhotoTapped:(id)sender;
 @property (weak, nonatomic) IBOutlet UITextView *whyParticipatedTextField;
+@property (weak, nonatomic) IBOutlet UIBarButtonItem *saveButton;
+
+- (IBAction)takePhotoTapped:(id)sender;
+- (IBAction)selectPhotoTapped:(id)sender;
 - (IBAction)cancelTapped:(id)sender;
 - (IBAction)saveTapped:(id)sender;
 @end
@@ -35,6 +40,23 @@
     [super viewDidLoad];
     self.client = [DSOAPIClient sharedClient];
     self.quantityLabel.text = [NSString stringWithFormat:@"Number of %@ %@:", self.campaign.reportbackNoun, self.campaign.reportbackVerb];
+
+    self.picker = [[UIImagePickerController alloc] init];
+    self.picker.delegate = self;
+    self.picker.allowsEditing = YES;
+
+    if (![UIImagePickerController isSourceTypeAvailable:UIImagePickerControllerSourceTypeCamera]) {
+
+        UIAlertView *myAlertView = [[UIAlertView alloc] initWithTitle:@"Error"
+                                                              message:@"Device has no camera"
+                                                             delegate:nil
+                                                    cancelButtonTitle:@"OK"
+                                                    otherButtonTitles: nil];
+
+        [myAlertView show];
+        self.takePhotoButton.hidden = YES;
+
+    }
 }
 
 /*
@@ -52,6 +74,7 @@
 }
 
 - (IBAction)saveTapped:(id)sender {
+    self.saveButton.enabled = NO;
     NSDictionary *values = @{@"quantity":self.quantityTextField.text,
                              @"file":self.selectedFilestring,
                              @"filename":self.selectedFilename,
@@ -76,12 +99,15 @@
     [destVC setCampaign:self.campaign];
     [self presentViewController:navVC animated:YES completion:nil];
 }
+
+- (IBAction)takePhotoTapped:(id)sender {
+    self.picker.sourceType = UIImagePickerControllerSourceTypeCamera;
+    [self presentViewController:self.picker animated:YES completion:NULL];
+}
+
 - (IBAction)selectPhotoTapped:(id)sender {
-    UIImagePickerController *picker = [[UIImagePickerController alloc] init];
-    picker.delegate = self;
-    picker.allowsEditing = YES;
-    picker.sourceType = UIImagePickerControllerSourceTypePhotoLibrary;
-    [self presentViewController:picker animated:YES completion:NULL];
+    self.picker.sourceType = UIImagePickerControllerSourceTypePhotoLibrary;
+    [self presentViewController:self.picker animated:YES completion:NULL];
 }
 #pragma mark - Image Picker Controller delegate methods
 
@@ -91,9 +117,15 @@
     self.previewImage.image = chosenImage;
     self.selectedFilestring = [UIImagePNGRepresentation(chosenImage) base64EncodedStringWithOptions:NSDataBase64Encoding64CharacterLineLength];
 
-    // Stolen from http://www.raywenderlich.com/forums/viewtopic.php?f=2&p=34901.
+    if (picker.sourceType == UIImagePickerControllerSourceTypeCamera) {
+        self.selectedFilename = @"temp.JPG";
+        [picker dismissViewControllerAnimated:YES completion:NULL];
+        return;
+    }
 
-    // get the ref url
+    // Stolen from http://www.raywenderlich.com/forums/viewtopic.php?f=2&p=34901.
+    // to get the original filename of selected file. Used for preserving file extensions.
+
     NSURL *refURL = [info valueForKey:UIImagePickerControllerReferenceURL];
     // define the block to call when we get the asset based on the url (below)
     ALAssetsLibraryAssetForURLResultBlock resultblock = ^(ALAsset *imageAsset)

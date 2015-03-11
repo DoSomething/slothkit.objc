@@ -198,15 +198,24 @@
                                 <nil key="highlightedColor"/>
                             </label>
                             <imageView userInteractionEnabled="NO" contentMode="scaleToFill" horizontalHuggingPriority="251" verticalHuggingPriority="251" fixedFrame="YES" translatesAutoresizingMaskIntoConstraints="NO" id="trf-zJ-W4i">
-                                <rect key="frame" x="16" y="182" width="125" height="125"/>
+                                <rect key="frame" x="16" y="182" width="187" height="163"/>
                             </imageView>
                             <button opaque="NO" contentMode="scaleToFill" fixedFrame="YES" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="tQL-wz-yba">
-                                <rect key="frame" x="180" y="230" width="98" height="30"/>
+                                <rect key="frame" x="211" y="249" width="98" height="30"/>
                                 <state key="normal" title="Select Photo">
                                     <color key="titleShadowColor" white="0.5" alpha="1" colorSpace="calibratedWhite"/>
                                 </state>
                                 <connections>
                                     <action selector="selectPhotoTapped:" destination="hgZ-2A-Oop" eventType="touchUpInside" id="65w-lk-Bos"/>
+                                </connections>
+                            </button>
+                            <button opaque="NO" contentMode="scaleToFill" fixedFrame="YES" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="jaC-0z-cGy">
+                                <rect key="frame" x="211" y="202" width="98" height="30"/>
+                                <state key="normal" title="Take Photo">
+                                    <color key="titleShadowColor" white="0.5" alpha="1" colorSpace="calibratedWhite"/>
+                                </state>
+                                <connections>
+                                    <action selector="takePhotoTapped:" destination="hgZ-2A-Oop" eventType="touchUpInside" id="Vk4-3r-921"/>
                                 </connections>
                             </button>
                         </subviews>
@@ -218,9 +227,9 @@
                                 <action selector="cancelTapped:" destination="hgZ-2A-Oop" id="iLq-IM-T8V"/>
                             </connections>
                         </barButtonItem>
-                        <barButtonItem key="rightBarButtonItem" style="plain" systemItem="save" id="2EH-yJ-rZ8">
+                        <barButtonItem key="rightBarButtonItem" style="plain" systemItem="save" id="vDd-42-CFn">
                             <connections>
-                                <action selector="saveTapped:" destination="hgZ-2A-Oop" id="FcZ-PW-WOJ"/>
+                                <action selector="saveTapped:" destination="hgZ-2A-Oop" id="rxv-Fu-kNW"/>
                             </connections>
                         </barButtonItem>
                     </navigationItem>
@@ -228,6 +237,8 @@
                         <outlet property="previewImage" destination="trf-zJ-W4i" id="JPi-OI-hkx"/>
                         <outlet property="quantityLabel" destination="4It-c3-EBJ" id="kCh-eC-Chb"/>
                         <outlet property="quantityTextField" destination="XiY-KW-7dm" id="OeI-sW-FO6"/>
+                        <outlet property="saveButton" destination="vDd-42-CFn" id="HX1-Fb-dYh"/>
+                        <outlet property="takePhotoButton" destination="jaC-0z-cGy" id="HDV-KL-fMV"/>
                         <outlet property="whyParticipatedTextField" destination="H4X-3i-KNX" id="qq7-gU-u3x"/>
                     </connections>
                 </viewController>
