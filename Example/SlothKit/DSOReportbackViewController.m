@@ -12,9 +12,11 @@
 
 @interface DSOReportbackViewController ()
 @property (strong, nonatomic) DSOAPIClient *client;
+@property (weak, nonatomic) IBOutlet UIImageView *previewImage;
 @property (weak, nonatomic) IBOutlet UILabel *quantityLabel;
 @property (weak, nonatomic) IBOutlet UITextField *quantityTextField;
 @property (weak, nonatomic) IBOutlet UITextView *imageURLTextField;
+- (IBAction)selectPhotoTapped:(id)sender;
 @property (weak, nonatomic) IBOutlet UITextView *whyParticipatedTextField;
 - (IBAction)cancelTapped:(id)sender;
 - (IBAction)saveTapped:(id)sender;
@@ -65,5 +67,28 @@
     DSOCampaignDetailViewController *destVC = (DSOCampaignDetailViewController *)navVC.topViewController;
     [destVC setCampaign:self.campaign];
     [self presentViewController:navVC animated:YES completion:nil];
+}
+- (IBAction)selectPhotoTapped:(id)sender {
+    UIImagePickerController *picker = [[UIImagePickerController alloc] init];
+    picker.delegate = self;
+    picker.allowsEditing = YES;
+    picker.sourceType = UIImagePickerControllerSourceTypePhotoLibrary;
+    [self presentViewController:picker animated:YES completion:NULL];
+}
+#pragma mark - Image Picker Controller delegate methods
+
+- (void)imagePickerController:(UIImagePickerController *)picker didFinishPickingMediaWithInfo:(NSDictionary *)info {
+
+    UIImage *chosenImage = info[UIImagePickerControllerEditedImage];
+    self.previewImage.image = chosenImage;
+
+    [picker dismissViewControllerAnimated:YES completion:NULL];
+
+}
+
+- (void)imagePickerControllerDidCancel:(UIImagePickerController *)picker {
+
+    [picker dismissViewControllerAnimated:YES completion:NULL];
+
 }
 @end
