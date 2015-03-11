@@ -74,13 +74,7 @@
 */
 
 - (IBAction)actionTapped:(id)sender {
-    if (self.isCompleted) {
-        NSString *domain = [self.client getService];
-        NSString *url = [NSString stringWithFormat:@"http://%@/reportback/%d", domain, self.rbid];
-        NSLog(@"url %@", url);
-        [[UIApplication sharedApplication] openURL:[NSURL URLWithString:url]];
-    }
-    else if (self.isSignedUp) {
+   if (self.isSignedUp) {
         UINavigationController *rbNavVC = [self.storyboard instantiateViewControllerWithIdentifier:@"reportbackNavigationController"];
         DSOReportbackViewController *destVC = (DSOReportbackViewController *)rbNavVC.topViewController;
         [destVC setCampaign:self.campaign];

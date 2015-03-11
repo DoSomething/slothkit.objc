@@ -9,7 +9,7 @@
 #import <UIKit/UIKit.h>
 #import <SlothKit/DSOCampaign.h>
 
-@interface DSOReportbackViewController : UIViewController
+@interface DSOReportbackViewController : UIViewController <UIImagePickerControllerDelegate, UINavigationControllerDelegate>
 
 @property (strong, nonatomic) DSOCampaign *campaign;
 
