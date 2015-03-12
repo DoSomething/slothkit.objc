@@ -48,7 +48,7 @@
         }
         [self.client.user syncWithDictionary:response[@"user"]];
         return;
-    } andErrorHandler:^(NSDictionary *response){
+    } errorHandler:^(NSDictionary *response){
         NSLog(@"Error %@", response);
         [self displayLoginViewController];
     }];

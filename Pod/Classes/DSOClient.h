@@ -19,20 +19,20 @@
 
 - (NSString *) getService;
 
-- (void)getCampaignWithNid:(NSInteger)nid andCompletionHandler:(void(^)(NSDictionary *))completionHandler;
+- (void)getCampaignWithNid:(NSInteger)nid completionHandler:(void(^)(NSDictionary *))completionHandler;
 
 - (void)getCampaignsWithCompletionHandler:(void(^)(NSMutableArray *))completionHandler;
 
-- (void)getConnectionStatusWithCompletionHandler:(void(^)(NSDictionary *))completionHandler andErrorHandler:(void(^)(NSDictionary *))errorHandler;
+- (void)getConnectionStatusWithCompletionHandler:(void(^)(NSDictionary *))completionHandler errorHandler:(void(^)(NSDictionary *))errorHandler;
 
-- (void)getCurrentUserActivityWithNid:(NSInteger)nid andCompletionHandler:(void(^)(NSDictionary *))completionHandler;
+- (void)getCurrentUserActivityWithNid:(NSInteger)nid completionHandler:(void(^)(NSDictionary *))completionHandler;
 
-- (void)loginWithUsername:(NSString *)username andPassword:(NSString *)password andCompletionHandler:(void(^)(NSDictionary *))completionHandler andErrorHandler:(void(^)(NSError *))errorHandler;
+- (void)loginWithUsername:(NSString *)username password:(NSString *)password completionHandler:(void(^)(NSDictionary *))completionHandler errorHandler:(void(^)(NSError *))errorHandler;
 
 - (void)logoutWithCompletionHandler:(void(^)(NSDictionary *))completionHandler;
 
-- (void)postReportbackForNid:(NSInteger)nid andValues:(NSDictionary *)values andCompletionHandler:(void(^)(NSDictionary *))completionHandler andErrorHandler:(void(^)(NSError *))errorHandler;
+- (void)postReportbackForNid:(NSInteger)nid values:(NSDictionary *)values completionHandler:(void(^)(NSDictionary *))completionHandler errorHandler:(void(^)(NSError *))errorHandler;
 
-- (void)postSignupForNid:(NSInteger)nid andSource:(NSString *)source andCompletionHandler:(void(^)(NSDictionary *))completionHandler andErrorHandler:(void(^)(NSError *))errorHandler;
+- (void)postSignupForNid:(NSInteger)nid source:(NSString *)source completionHandler:(void(^)(NSDictionary *))completionHandler errorHandler:(void(^)(NSError *))errorHandler;
 
 @end

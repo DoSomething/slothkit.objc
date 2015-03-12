@@ -24,12 +24,12 @@
     
     DSOClient *client = [DSOClient sharedClient];
     
-    [client loginWithUsername:username andPassword:password andCompletionHandler:^(NSDictionary *response){
+    [client loginWithUsername:username password:password completionHandler:^(NSDictionary *response){
         NSLog(@"%@", response);
         UINavigationController *destNavVC = [self.storyboard instantiateViewControllerWithIdentifier:@"campaignListNavigationController"];
         [self presentViewController:destNavVC animated:YES completion:nil];
         
-    } andErrorHandler:^(NSError *error){
+    } errorHandler:^(NSError *error){
         NSLog(@"%@", error.localizedDescription);
     }];
 }
