@@ -31,8 +31,6 @@
 
 - (void)logoutWithCompletionHandler:(void(^)(NSDictionary *))completionHandler;
 
-- (BOOL)isLoggedIn;
-
 - (void)postReportbackForNid:(NSInteger)nid andValues:(NSDictionary *)values andCompletionHandler:(void(^)(NSDictionary *))completionHandler andErrorHandler:(void(^)(NSError *))errorHandler;
 
 - (void)postSignupForNid:(NSInteger)nid andSource:(NSString *)source andCompletionHandler:(void(^)(NSDictionary *))completionHandler andErrorHandler:(void(^)(NSError *))errorHandler;

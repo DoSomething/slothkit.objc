@@ -113,10 +113,6 @@
         NSLog(@"Error: %@",error.localizedDescription);
     }];
 }
-- (BOOL)isLoggedIn
-{
-    return [self.user getUid] > 0;
-}
 
 -(void)loginWithUsername:(NSString *)username andPassword:(NSString *)password andCompletionHandler:(void(^)(NSDictionary *))completionHandler andErrorHandler:(void(^)(NSError *))errorHandler
 {
