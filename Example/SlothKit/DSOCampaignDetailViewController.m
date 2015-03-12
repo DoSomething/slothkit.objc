@@ -48,7 +48,6 @@
         }
         if ([response objectForKey:@"rbid"]) {
             self.isCompleted = YES;
-            self.rbid = [response[@"rbid"] intValue];
             [self.actionButton setTitle:@"Proved It!" forState:UIControlStateNormal];
         }
         self.actionButton.hidden = NO;
