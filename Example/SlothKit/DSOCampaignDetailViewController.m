@@ -42,15 +42,13 @@
         self.coverImage.image = self.campaign.coverImage;
     }];
     [self.client getCurrentUserActivityWithNid:self.campaign.nid andCompletionHandler:^(NSDictionary *response){
-        NSLog(@"response %@", response);
         if ([response objectForKey:@"sid"]) {
             self.isSignedUp = YES;
            [self.actionButton setTitle:@"Prove It" forState:UIControlStateNormal];
         }
         if ([response objectForKey:@"rbid"]) {
             self.isCompleted = YES;
-            self.rbid = (NSInteger *)(long)response[@"rbid"];
-            NSLog(@"rbid %@", self.rbid);
+            self.rbid = [response[@"rbid"] intValue];
             [self.actionButton setTitle:@"Proved It!" forState:UIControlStateNormal];
         }
         self.actionButton.hidden = NO;
@@ -74,6 +72,8 @@
 */
 
 - (IBAction)actionTapped:(id)sender {
+    NSInteger nid = self.campaign.nid;
+
    if (self.isSignedUp) {
         UINavigationController *rbNavVC = [self.storyboard instantiateViewControllerWithIdentifier:@"reportbackNavigationController"];
         DSOReportbackViewController *destVC = (DSOReportbackViewController *)rbNavVC.topViewController;
@@ -81,7 +81,7 @@
         [self presentViewController:rbNavVC animated:YES completion:nil];
     }
     else {
-        [self.client postSignupForNid:self.campaign.nid
+        [self.client postSignupForNid:nid
                         andSource:@"SlothieBoy Example"
              andCompletionHandler:^(NSDictionary *response){
                  [self.actionButton setTitle:@"Prove It" forState:UIControlStateNormal];

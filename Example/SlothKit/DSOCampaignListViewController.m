@@ -64,8 +64,8 @@
     [self.client getCampaignsWithCompletionHandler:^(NSMutableArray *response){
         for (NSDictionary *result in response) {
             DSOCampaign *campaign = [[DSOCampaign alloc] init];
-            campaign.nid = (NSInteger *)(long)result[@"nid"];
-            campaign.title = (NSString *)result[@"title"];
+            [campaign setNid:[result[@"nid"] integerValue]];
+            [campaign setTitle:(NSString *)result[@"title"]];
             [self.campaigns addObject:campaign];
         }
         [self.tableView reloadData];

@@ -83,7 +83,6 @@
     [self.client postReportbackForNid:self.campaign.nid
                         andValues:values
              andCompletionHandler:^(NSDictionary *response){
-                 NSLog(@"@", response);
                  [self displayCampaignDetailViewController];
              }
                   andErrorHandler:^(NSError *error){
