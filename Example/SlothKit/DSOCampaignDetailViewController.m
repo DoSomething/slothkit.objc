@@ -8,10 +8,10 @@
 
 #import "DSOCampaignDetailViewController.h"
 #import "DSOReportbackViewController.h"
-#import <SlothKit/DSOAPIClient.h>
+#import <SlothKit/DSOClient.h>
 
 @interface DSOCampaignDetailViewController ()
-@property (strong, nonatomic) DSOAPIClient *client;
+@property (strong, nonatomic) DSOClient *client;
 @property (nonatomic, assign) BOOL isSignedUp;
 @property (nonatomic, assign) BOOL isCompleted;
 @property (nonatomic, assign) NSInteger rbid;
@@ -26,7 +26,7 @@
 
 - (void)viewDidLoad {
     [super viewDidLoad];
-    self.client = [DSOAPIClient sharedClient];
+    self.client = [DSOClient sharedClient];
     self.isSignedUp = NO;
     self.isCompleted = NO;
     self.actionButton.hidden = YES;

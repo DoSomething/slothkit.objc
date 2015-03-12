@@ -9,12 +9,12 @@
 #import "DSOCampaignListViewController.h"
 #import "DSOCampaignDetailViewController.h"
 #import "DSOLoginViewController.h"
-#import <SlothKit/DSOAPIClient.h>
+#import <SlothKit/DSOClient.h>
 #import <SlothKit/DSOCampaign.h>
 
 @interface DSOCampaignListViewController ()
 
-@property (strong, nonatomic) DSOAPIClient *client;
+@property (strong, nonatomic) DSOClient *client;
 @property (strong, nonatomic) NSMutableArray *campaigns;
 - (IBAction)logoutTapped:(id)sender;
 
@@ -28,7 +28,7 @@
 - (void)viewDidLoad
 {
     [super viewDidLoad];
-    self.client = [DSOAPIClient sharedClient];
+    self.client = [DSOClient sharedClient];
     self.tableView.delegate = self;
     self.tableView.dataSource = self;
     self.campaigns = [[NSMutableArray alloc] init];

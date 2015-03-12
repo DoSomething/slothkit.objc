@@ -7,14 +7,14 @@
 //
 
 #import "DSOReportbackViewController.h"
-#import <SlothKit/DSOAPIClient.h>
+#import <SlothKit/DSOClient.h>
 #import "DSOCampaignDetailViewController.h"
 #import <AssetsLibrary/AssetsLibrary.h>
 
 
 @interface DSOReportbackViewController ()
 
-@property (strong, nonatomic) DSOAPIClient *client;
+@property (strong, nonatomic) DSOClient *client;
 
 @property (strong, nonatomic) NSString *selectedFilestring;
 @property (strong, nonatomic) NSString *selectedFilename;
@@ -38,7 +38,7 @@
 
 - (void)viewDidLoad {
     [super viewDidLoad];
-    self.client = [DSOAPIClient sharedClient];
+    self.client = [DSOClient sharedClient];
     self.quantityLabel.text = [NSString stringWithFormat:@"Number of %@ %@:", self.campaign.reportbackNoun, self.campaign.reportbackVerb];
 
     self.picker = [[UIImagePickerController alloc] init];

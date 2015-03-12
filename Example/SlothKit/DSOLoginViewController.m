@@ -7,7 +7,7 @@
 //
 
 #import "DSOLoginViewController.h"
-#import "SlothKit/DSOAPIClient.h"
+#import "SlothKit/DSOClient.h"
 
 @interface DSOLoginViewController ()
 @property (weak, nonatomic) IBOutlet UITextField *usernameTextField;
@@ -42,7 +42,7 @@
     NSString *username = self.usernameTextField.text;
     NSString *password = self.passwordTextField.text;
     
-    DSOAPIClient *client = [DSOAPIClient sharedClient];
+    DSOClient *client = [DSOClient sharedClient];
     
     [client loginWithUsername:username andPassword:password andCompletionHandler:^(NSDictionary *response){
         NSLog(@"%@", response);

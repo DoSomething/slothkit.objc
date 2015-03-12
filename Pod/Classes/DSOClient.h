@@ -9,11 +9,11 @@
 #import "AFHTTPSessionManager.h"
 #import "DSOUser.h"
 
-@interface DSOAPIClient : AFHTTPSessionManager
+@interface DSOClient : AFHTTPSessionManager
 
 @property (strong, nonatomic) DSOUser *user;
 
-+ (DSOAPIClient *)sharedClient;
++ (DSOClient *)sharedClient;
 
 - (instancetype)initWithBaseURL:(NSURL *)url;
 

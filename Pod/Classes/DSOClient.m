@@ -6,21 +6,21 @@
 //
 //
 
-#import "DSOAPIClient.h"
+#import "DSOClient.h"
 #import <SSKeychain/SSKeychain.h>
 
-@interface DSOAPIClient()
+@interface DSOClient()
 @property (retain, nonatomic) NSString *serviceName;
 @property (retain, nonatomic) NSString *serviceTokensName;
 @end
 
-@implementation DSOAPIClient
+@implementation DSOClient
 
 @synthesize serviceName;
 @synthesize serviceTokensName;
 @synthesize user;
 
-+ (DSOAPIClient *)sharedClient
++ (DSOClient *)sharedClient
 {
     NSString *server = @"www.dosomething.org";
     NSString *protocol = @"https";
@@ -29,7 +29,7 @@
     protocol =@"http";
 #endif
     NSString *apiEndpoint = [NSString stringWithFormat:@"%@://%@/api/v1/", protocol, server];
-    static DSOAPIClient *_sharedClient = nil;
+    static DSOClient *_sharedClient = nil;
     
     static dispatch_once_t onceToken;
     dispatch_once(&onceToken, ^{
