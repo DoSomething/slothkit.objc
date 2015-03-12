@@ -11,7 +11,7 @@
 
 @interface DSOCampaign : NSObject
 
-@property (assign, nonatomic) NSInteger *nid;
+@property (assign, nonatomic) NSInteger nid;
 @property (strong, nonatomic) NSString *title;
 @property (strong, nonatomic) NSString *callToAction;
 @property (strong, nonatomic) NSString *coverImageUrl;

@@ -7,14 +7,14 @@
 //
 
 #import "DSOReportbackViewController.h"
-#import <SlothKit/DSOAPIClient.h>
+#import <SlothKit/DSOClient.h>
 #import "DSOCampaignDetailViewController.h"
 #import <AssetsLibrary/AssetsLibrary.h>
 
 
 @interface DSOReportbackViewController ()
 
-@property (strong, nonatomic) DSOAPIClient *client;
+@property (strong, nonatomic) DSOClient *client;
 
 @property (strong, nonatomic) NSString *selectedFilestring;
 @property (strong, nonatomic) NSString *selectedFilename;
@@ -38,7 +38,7 @@
 
 - (void)viewDidLoad {
     [super viewDidLoad];
-    self.client = [DSOAPIClient sharedClient];
+    self.client = [DSOClient sharedClient];
     self.quantityLabel.text = [NSString stringWithFormat:@"Number of %@ %@:", self.campaign.reportbackNoun, self.campaign.reportbackVerb];
 
     self.picker = [[UIImagePickerController alloc] init];
@@ -59,16 +59,6 @@
     }
 }
 
-/*
-#pragma mark - Navigation
-
-// In a storyboard-based application, you will often want to do a little preparation before navigation
-- (void)prepareForSegue:(UIStoryboardSegue *)segue sender:(id)sender {
-    // Get the new view controller using [segue destinationViewController].
-    // Pass the selected object to the new view controller.
-}
-*/
-
 - (IBAction)cancelTapped:(id)sender {
     [self displayCampaignDetailViewController];
 }
@@ -83,7 +73,6 @@
     [self.client postReportbackForNid:self.campaign.nid
                         andValues:values
              andCompletionHandler:^(NSDictionary *response){
-                 NSLog(@"@", response);
                  [self displayCampaignDetailViewController];
              }
                   andErrorHandler:^(NSError *error){

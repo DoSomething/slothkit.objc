@@ -6,21 +6,21 @@
 //
 //
 
-#import "DSOAPIClient.h"
+#import "DSOClient.h"
 #import <SSKeychain/SSKeychain.h>
 
-@interface DSOAPIClient()
+@interface DSOClient()
 @property (retain, nonatomic) NSString *serviceName;
 @property (retain, nonatomic) NSString *serviceTokensName;
 @end
 
-@implementation DSOAPIClient
+@implementation DSOClient
 
 @synthesize serviceName;
 @synthesize serviceTokensName;
 @synthesize user;
 
-+ (DSOAPIClient *)sharedClient
++ (DSOClient *)sharedClient
 {
     NSString *server = @"www.dosomething.org";
     NSString *protocol = @"https";
@@ -29,7 +29,7 @@
     protocol =@"http";
 #endif
     NSString *apiEndpoint = [NSString stringWithFormat:@"%@://%@/api/v1/", protocol, server];
-    static DSOAPIClient *_sharedClient = nil;
+    static DSOClient *_sharedClient = nil;
     
     static dispatch_once_t onceToken;
     dispatch_once(&onceToken, ^{
@@ -71,7 +71,7 @@
 
 - (void)getCampaignWithNid:(NSInteger)nid andCompletionHandler:(void(^)(NSDictionary *))completionHandler
 {
-    NSString *url = [NSString stringWithFormat:@"content/%@.json", nid];
+    NSString *url = [NSString stringWithFormat:@"content/%ld.json", (long)nid];
     [self GET:url parameters:nil success:^(NSURLSessionDataTask *task, id responseObject) {
         completionHandler(responseObject);
     } failure:^(NSURLSessionDataTask *task, NSError *error) {
@@ -105,17 +105,13 @@
 
 - (void)getCurrentUserActivityWithNid:(NSInteger)nid andCompletionHandler:(void(^)(NSDictionary *))completionHandler
 {
-    NSString *url = [NSString stringWithFormat:@"users/current/activity.json?nid=%@", nid];
+    NSString *url = [NSString stringWithFormat:@"users/current/activity.json?nid=%ld", (long)nid];
     NSLog(@"url = %@", url);
     [self GET:url parameters:nil success:^(NSURLSessionDataTask *task, id responseObject) {
         completionHandler(responseObject);
     } failure:^(NSURLSessionDataTask *task, NSError *error) {
         NSLog(@"Error: %@",error.localizedDescription);
     }];
-}
-- (BOOL)isLoggedIn
-{
-    return [self.user getUid] > 0;
 }
 
 -(void)loginWithUsername:(NSString *)username andPassword:(NSString *)password andCompletionHandler:(void(^)(NSDictionary *))completionHandler andErrorHandler:(void(^)(NSError *))errorHandler
@@ -146,7 +142,7 @@
 
 - (void)postReportbackForNid:(NSInteger)nid andValues:(NSDictionary *)values andCompletionHandler:(void(^)(NSDictionary *))completionHandler andErrorHandler:(void(^)(NSError *))errorHandler
 {
-    NSString *url = [NSString stringWithFormat:@"campaigns/%@/reportback.json", nid];
+    NSString *url = [NSString stringWithFormat:@"campaigns/%ld/reportback.json", (long)nid];
     [self POST:url parameters:values success:^(NSURLSessionDataTask *task, id responseObject) {
         completionHandler(responseObject);
     } failure:^(NSURLSessionDataTask *task, NSError *error) {
@@ -156,7 +152,7 @@
 
 - (void)postSignupForNid:(NSInteger)nid andSource:(NSString *)source andCompletionHandler:(void(^)(NSDictionary *))completionHandler andErrorHandler:(void(^)(NSError *))errorHandler
 {
-    NSString *url = [NSString stringWithFormat:@"campaigns/%@/signup.json", nid];
+    NSString *url = [NSString stringWithFormat:@"campaigns/%ld/signup.json", (long)nid];
     NSDictionary *params = @{@"source":source};
     [self POST:url parameters:params success:^(NSURLSessionDataTask *task, id responseObject) {
         completionHandler(responseObject);

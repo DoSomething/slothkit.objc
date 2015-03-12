@@ -28,7 +28,7 @@ PODS:
   - SlothKit (0.1.0):
     - AFNetworking (~> 2.5)
     - SSKeychain (~> 1.2)
-  - Specta (0.3.2)
+  - Specta (0.4.0)
   - SSKeychain (1.2.2)
 
 DEPENDENCIES:
@@ -48,7 +48,7 @@ SPEC CHECKSUMS:
   Expecta+Snapshots: 4a56b9411c6ed156987072e52c39de67d864015a
   FBSnapshotTestCase: e2914fbaabccea1dcc773d6a16b1c24540642488
   SlothKit: dc58060bcf2d6dc04fca3e6c043e0026e6e494fb
-  Specta: 698a58ffa5ec948327d3b92eab50ca58d7f4fbe8
+  Specta: 1df326d6ec48603c77f507a0ab1f89ad2df1c582
   SSKeychain: cc48bd3ad24fcd9125adb9e0d23dd50b8bbd08b9
 
 COCOAPODS: 0.35.0

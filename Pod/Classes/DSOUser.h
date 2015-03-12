@@ -10,8 +10,6 @@
 
 @interface DSOUser : NSObject
 
-- (NSInteger)getUid;
-
 - (void)syncWithDictionary:(NSDictionary *)values;
 
 @end

@@ -9,11 +9,11 @@
 #import "AFHTTPSessionManager.h"
 #import "DSOUser.h"
 
-@interface DSOAPIClient : AFHTTPSessionManager
+@interface DSOClient : AFHTTPSessionManager
 
 @property (strong, nonatomic) DSOUser *user;
 
-+ (DSOAPIClient *)sharedClient;
++ (DSOClient *)sharedClient;
 
 - (instancetype)initWithBaseURL:(NSURL *)url;
 
@@ -30,8 +30,6 @@
 - (void)loginWithUsername:(NSString *)username andPassword:(NSString *)password andCompletionHandler:(void(^)(NSDictionary *))completionHandler andErrorHandler:(void(^)(NSError *))errorHandler;
 
 - (void)logoutWithCompletionHandler:(void(^)(NSDictionary *))completionHandler;
-
-- (BOOL)isLoggedIn;
 
 - (void)postReportbackForNid:(NSInteger)nid andValues:(NSDictionary *)values andCompletionHandler:(void(^)(NSDictionary *))completionHandler andErrorHandler:(void(^)(NSError *))errorHandler;
 
