@@ -69,7 +69,7 @@
     }
 }
 
-- (void)getCampaignWithNid:(NSInteger)nid andCompletionHandler:(void(^)(NSDictionary *))completionHandler
+- (void)getCampaignWithNid:(NSInteger)nid completionHandler:(void(^)(NSDictionary *))completionHandler
 {
     NSString *url = [NSString stringWithFormat:@"content/%ld.json", (long)nid];
     [self GET:url parameters:nil success:^(NSURLSessionDataTask *task, id responseObject) {
@@ -89,7 +89,7 @@
     }];
 }
 
-- (void)getConnectionStatusWithCompletionHandler:(void(^)(NSDictionary *))completionHandler andErrorHandler:(void(^)(NSDictionary *))errorHandler
+- (void)getConnectionStatusWithCompletionHandler:(void(^)(NSDictionary *))completionHandler errorHandler:(void(^)(NSDictionary *))errorHandler
 {
     NSMutableDictionary *tokens = [self getSavedTokens];
     if ([tokens count] > 0) {
@@ -103,7 +103,7 @@
     }];
 }
 
-- (void)getCurrentUserActivityWithNid:(NSInteger)nid andCompletionHandler:(void(^)(NSDictionary *))completionHandler
+- (void)getCurrentUserActivityWithNid:(NSInteger)nid completionHandler:(void(^)(NSDictionary *))completionHandler
 {
     NSString *url = [NSString stringWithFormat:@"users/current/activity.json?nid=%ld", (long)nid];
     NSLog(@"url = %@", url);
@@ -114,7 +114,7 @@
     }];
 }
 
--(void)loginWithUsername:(NSString *)username andPassword:(NSString *)password andCompletionHandler:(void(^)(NSDictionary *))completionHandler andErrorHandler:(void(^)(NSError *))errorHandler
+-(void)loginWithUsername:(NSString *)username password:(NSString *)password completionHandler:(void(^)(NSDictionary *))completionHandler errorHandler:(void(^)(NSError *))errorHandler
 {
     NSDictionary *params = @{@"username":username,
                              @"password":password};
@@ -140,7 +140,7 @@
     }];
 }
 
-- (void)postReportbackForNid:(NSInteger)nid andValues:(NSDictionary *)values andCompletionHandler:(void(^)(NSDictionary *))completionHandler andErrorHandler:(void(^)(NSError *))errorHandler
+- (void)postReportbackForNid:(NSInteger)nid values:(NSDictionary *)values completionHandler:(void(^)(NSDictionary *))completionHandler errorHandler:(void(^)(NSError *))errorHandler
 {
     NSString *url = [NSString stringWithFormat:@"campaigns/%ld/reportback.json", (long)nid];
     [self POST:url parameters:values success:^(NSURLSessionDataTask *task, id responseObject) {
@@ -150,7 +150,7 @@
     }];
 }
 
-- (void)postSignupForNid:(NSInteger)nid andSource:(NSString *)source andCompletionHandler:(void(^)(NSDictionary *))completionHandler andErrorHandler:(void(^)(NSError *))errorHandler
+- (void)postSignupForNid:(NSInteger)nid source:(NSString *)source completionHandler:(void(^)(NSDictionary *))completionHandler errorHandler:(void(^)(NSError *))errorHandler
 {
     NSString *url = [NSString stringWithFormat:@"campaigns/%ld/signup.json", (long)nid];
     NSDictionary *params = @{@"source":source};

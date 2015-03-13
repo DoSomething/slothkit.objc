@@ -71,11 +71,11 @@
                              @"why_participated":self.whyParticipatedTextField.text};
 
     [self.client postReportbackForNid:self.campaign.nid
-                        andValues:values
-             andCompletionHandler:^(NSDictionary *response){
+                        values:values
+             completionHandler:^(NSDictionary *response){
                  [self displayCampaignDetailViewController];
              }
-                  andErrorHandler:^(NSError *error){
+                  errorHandler:^(NSError *error){
                       NSLog(@"%@", error.localizedDescription);
                   }
      ];

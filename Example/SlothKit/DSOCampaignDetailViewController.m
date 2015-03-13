@@ -36,19 +36,18 @@
     [super viewDidAppear:animated];
 
     self.title = self.campaign.title;
-    [self.client getCampaignWithNid:self.campaign.nid andCompletionHandler:^(NSDictionary *response){
+    [self.client getCampaignWithNid:self.campaign.nid completionHandler:^(NSDictionary *response){
         [self.campaign syncWithDictionary:response];
         self.ctaLabel.text = self.campaign.callToAction;
         self.coverImage.image = self.campaign.coverImage;
     }];
-    [self.client getCurrentUserActivityWithNid:self.campaign.nid andCompletionHandler:^(NSDictionary *response){
+    [self.client getCurrentUserActivityWithNid:self.campaign.nid completionHandler:^(NSDictionary *response){
         if ([response objectForKey:@"sid"]) {
             self.isSignedUp = YES;
            [self.actionButton setTitle:@"Prove It" forState:UIControlStateNormal];
         }
         if ([response objectForKey:@"rbid"]) {
             self.isCompleted = YES;
-            self.rbid = [response[@"rbid"] intValue];
             [self.actionButton setTitle:@"Proved It!" forState:UIControlStateNormal];
         }
         self.actionButton.hidden = NO;
@@ -67,13 +66,13 @@
     }
     else {
         [self.client postSignupForNid:nid
-                        andSource:@"SlothieBoy Example"
-             andCompletionHandler:^(NSDictionary *response){
+                        source:@"SlothieBoy Example"
+             completionHandler:^(NSDictionary *response){
                  [self.actionButton setTitle:@"Prove It" forState:UIControlStateNormal];
                  self.isSignedUp = YES;
 
              }
-                  andErrorHandler:^(NSError *error){
+                  errorHandler:^(NSError *error){
                       NSLog(@"%@", error.localizedDescription);
                   }
          ];
