@@ -53,6 +53,7 @@
     return self;
 }
 
+
 - (NSString *) getService
 {
     return self.serviceName;
@@ -114,6 +115,28 @@
     }];
 }
 
+- (void)getSingleInboxReportbackForTid:(NSInteger)tid completionHandler:(void(^)(NSMutableArray *))completionHandler errorHandler:(void(^)(NSError *))errorHandler
+{
+
+    NSString *url = [NSString stringWithFormat:@"terms/%li/inbox.json?count=1", tid];
+    [self GET:url parameters:nil success:^(NSURLSessionDataTask *task, id responseObject) {
+        completionHandler(responseObject);
+    } failure:^(NSURLSessionDataTask *task, NSError *error) {
+        NSLog(@"Error: %@",error.localizedDescription);
+    }];
+}
+
+
+- (void)getTermsWithCompletionHandler:(void(^)(NSMutableArray *))completionHandler
+{
+    NSString *url = @"terms.json";
+    [self GET:url parameters:nil success:^(NSURLSessionDataTask *task, id responseObject) {
+        completionHandler(responseObject);
+    } failure:^(NSURLSessionDataTask *task, NSError *error) {
+        NSLog(@"Error: %@",error.localizedDescription);
+    }];
+}
+
 -(void)loginWithUsername:(NSString *)username password:(NSString *)password completionHandler:(void(^)(NSDictionary *))completionHandler errorHandler:(void(^)(NSError *))errorHandler
 {
     NSDictionary *params = @{@"username":username,
@@ -150,6 +173,18 @@
     }];
 }
 
+- (void)postReportbackItemReviewWithValues:(NSDictionary *)values completionHandler:(void(^)(NSArray *))completionHandler
+{
+
+    NSString *postUrl = [NSString stringWithFormat:@"reportback_files/%@/review.json", values[@"fid"]];
+    [self POST:postUrl parameters:values success:^(NSURLSessionDataTask *task, id responseObject) {
+        completionHandler(responseObject);
+    } failure:^(NSURLSessionDataTask *task, NSError *error) {
+        NSLog(@"Error: %@",error.localizedDescription);
+    }];
+}
+
+
 - (void)postSignupForNid:(NSInteger)nid source:(NSString *)source completionHandler:(void(^)(NSDictionary *))completionHandler errorHandler:(void(^)(NSError *))errorHandler
 {
     NSString *url = [NSString stringWithFormat:@"campaigns/%ld/signup.json", (long)nid];
@@ -170,6 +205,19 @@
         [SSKeychain deletePasswordForService:self.serviceTokensName account:key];
     }
 }
+
+- (NSDictionary *) getSavedLogin
+{
+    NSDictionary *authValues = [[NSDictionary alloc] init];
+    NSArray *accounts = [SSKeychain accountsForService:self.serviceName];
+    if ([accounts count] > 0) {
+        NSDictionary *account = accounts[0];
+        authValues = @{@"username":account[@"acct"],
+                       @"password":[SSKeychain passwordForService:self.serviceName account:account[@"acct"]]};
+    }
+    return authValues;
+}
+
 
 - (NSMutableDictionary *) getSavedTokens
 {

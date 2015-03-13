@@ -19,6 +19,10 @@
 
 - (NSString *) getService;
 
+- (NSDictionary *) getSavedLogin;
+
+- (NSMutableDictionary *) getSavedTokens;
+
 - (void)getCampaignWithNid:(NSInteger)nid completionHandler:(void(^)(NSDictionary *))completionHandler;
 
 - (void)getCampaignsWithCompletionHandler:(void(^)(NSMutableArray *))completionHandler;
@@ -27,11 +31,18 @@
 
 - (void)getCurrentUserActivityWithNid:(NSInteger)nid completionHandler:(void(^)(NSDictionary *))completionHandler;
 
+- (void)getSingleInboxReportbackForTid:(NSInteger)tid completionHandler:(void(^)(NSMutableArray *))completionHandler errorHandler:(void(^)(NSError *))errorHandler;
+
+- (void)getTermsWithCompletionHandler:(void(^)(NSMutableArray *))completionHandler;
+
 - (void)loginWithUsername:(NSString *)username password:(NSString *)password completionHandler:(void(^)(NSDictionary *))completionHandler errorHandler:(void(^)(NSError *))errorHandler;
 
 - (void)logoutWithCompletionHandler:(void(^)(NSDictionary *))completionHandler;
 
 - (void)postReportbackForNid:(NSInteger)nid values:(NSDictionary *)values completionHandler:(void(^)(NSDictionary *))completionHandler errorHandler:(void(^)(NSError *))errorHandler;
+
+- (void)postReportbackItemReviewWithValues:(NSDictionary *)values completionHandler:(void(^)(NSArray *))completionHandler;
+
 
 - (void)postSignupForNid:(NSInteger)nid source:(NSString *)source completionHandler:(void(^)(NSDictionary *))completionHandler errorHandler:(void(^)(NSError *))errorHandler;
 
