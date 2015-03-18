@@ -3,7 +3,7 @@
 
 # Xcode
 build/
-.xcworkspace
+*.xcworkspace
 Podfile.lock
 Pods
 *.pbxuser
