@@ -9,15 +9,23 @@
 #import "DSOUser.h"
 
 @interface DSOUser()
-@property (nonatomic, assign) NSInteger uid;
-@property (nonatomic, strong) NSString *email;
+@property (nonatomic, readwrite) NSInteger userID;
+@property (nonatomic, strong, readwrite) NSString *email;
+@property (nonatomic, readwrite) BOOL isAdmin;
 @end
 
 @implementation DSOUser
 
 - (void)syncWithDictionary:(NSDictionary *)values {
-    self.uid = (NSInteger)values[@"uid"];
-    self.email = values[@"email"];
+    self.userID = (NSInteger)values[@"uid"];
+    self.email = values[@"mail"];
+
+    self.isAdmin = NO;
+    for(NSString *key in values[@"roles"]) {
+        if([key isEqualToString:@"3"]) {
+            self.isAdmin = YES;
+        }
+    }
 }
 
 @end

@@ -9,13 +9,11 @@
 #import "DSOCampaignListViewController.h"
 #import "DSOCampaignDetailViewController.h"
 #import "DSOLoginViewController.h"
-#import <SlothKit/DSOClient.h>
-#import <SlothKit/DSOCampaign.h>
+#import <SlothKit/SlothKit.h>
 
 @interface DSOCampaignListViewController ()
 
-@property (strong, nonatomic) DSOClient *client;
-@property (strong, nonatomic) NSMutableArray *campaigns;
+@property (strong, nonatomic) NSArray *campaigns;
 - (IBAction)logoutTapped:(id)sender;
 
 @property (weak, nonatomic) IBOutlet UIBarButtonItem *logoutButton;
@@ -28,46 +26,39 @@
 - (void)viewDidLoad
 {
     [super viewDidLoad];
-    self.client = [DSOClient sharedClient];
     self.tableView.delegate = self;
     self.tableView.dataSource = self;
-    self.campaigns = [[NSMutableArray alloc] init];
     self.title = @"Campaigns";
-    [self getCampaigns];
 }
 
 - (void)viewDidAppear:(BOOL)animated
 {
     [super viewDidAppear:animated];
-    [self.client getConnectionStatusWithCompletionHandler:^(NSDictionary *response){
-        NSDictionary *user = response[@"user"];
-        NSDictionary *userRoles = user[@"roles"];
-        // 1 is anon user.
-        if ([userRoles objectForKey:@"1"]) {
-            [self displayLoginViewController];
-        }
-        [self.client.user syncWithDictionary:response[@"user"]];
-        return;
-    } errorHandler:^(NSDictionary *response){
-        NSLog(@"Error %@", response);
-        [self displayLoginViewController];
-    }];
+
+    if([DSOSession currentSession])
+    {
+        [self getCampaigns];
+    }
+    else if([DSOSession hasCachedSession])
+    {
+        [DSOSession startWithCachedSession:^(DSOSession *session) {
+            [self getCampaigns];
+        } failure:^(NSError *error) {
+            if(error == nil) {
+                [self displayLoginViewController];
+            }
+        }];
+    }
 }
 
-- (void) displayLoginViewController {
+- (void)displayLoginViewController {
     DSOLoginViewController *loginVC = [self.storyboard instantiateViewControllerWithIdentifier:@"loginNavigationController"];
     [self presentViewController:loginVC animated:YES completion:nil];
 }
 
-- (void) getCampaigns {
-    
-    [self.client getCampaignsWithCompletionHandler:^(NSMutableArray *response){
-        for (NSDictionary *result in response) {
-            DSOCampaign *campaign = [[DSOCampaign alloc] init];
-            [campaign setNid:[result[@"nid"] integerValue]];
-            [campaign setTitle:(NSString *)result[@"title"]];
-            [self.campaigns addObject:campaign];
-        }
+- (void)getCampaigns {
+    [DSOCampaign staffPickCampaigns:^(NSArray *campaigns, NSError *error) {
+        self.campaigns = campaigns;
         [self.tableView reloadData];
     }];
 }
@@ -76,13 +67,7 @@
     return [self.campaigns count];
 }
 
-- (NSInteger)numberOfSectionsInTableView:(UITableView *)tableView {
-    // Return the number of sections.
-    return 1;
-}
-
 - (UITableViewCell *)tableView:(UITableView *)tableView cellForRowAtIndexPath:(NSIndexPath *)indexPath {
-    
     UITableViewCell *cell = [tableView dequeueReusableCellWithIdentifier:@"tableCell" forIndexPath:indexPath];
     DSOCampaign *campaign = (DSOCampaign *)self.campaigns[indexPath.row];
     cell.textLabel.text = campaign.title;
@@ -92,20 +77,23 @@
 #pragma mark - Navigation
 
 - (void)prepareForSegue:(UIStoryboardSegue *)segue sender:(id)sender {
-    if (sender == self.logoutButton) {
+    if (sender == self.logoutButton)
+    {
         return;
     }
+
     UINavigationController *initialVC = (UINavigationController *) [segue destinationViewController];
     DSOCampaignDetailViewController *destVC = (DSOCampaignDetailViewController *)initialVC.topViewController;
-    UITableViewCell *cell = (UITableViewCell *)sender;
-    NSIndexPath *indexPath = [self.tableView indexPathForCell:cell];
-    DSOCampaign *campaign = (DSOCampaign *)self.campaigns[indexPath.row];
-    [destVC setCampaign:campaign];
+
+    NSIndexPath *indexPath = [self.tableView indexPathForCell:(UITableViewCell *)sender];
+    destVC.campaign = (DSOCampaign *)self.campaigns[indexPath.row];
 }
 
 - (IBAction)logoutTapped:(id)sender {
-    [self.client logoutWithCompletionHandler:^(NSDictionary *response){
+    [[DSOSession currentSession] logout:^{
         [self displayLoginViewController];
+    } failure:^(NSError *error) {
+
     }];
 }
 @end
