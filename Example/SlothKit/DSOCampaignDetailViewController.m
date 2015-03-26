@@ -8,10 +8,9 @@
 
 #import "DSOCampaignDetailViewController.h"
 #import "DSOReportbackViewController.h"
-#import <SlothKit/DSOClient.h>
+#import <SlothKit/SlothKit.h>
 
 @interface DSOCampaignDetailViewController ()
-@property (strong, nonatomic) DSOClient *client;
 @property (nonatomic, assign) BOOL isSignedUp;
 @property (nonatomic, assign) BOOL isCompleted;
 @property (nonatomic, assign) NSInteger rbid;
@@ -24,9 +23,16 @@
 
 @implementation DSOCampaignDetailViewController
 
+- (void)setCampaign:(DSOCampaign *)campaign {
+    _campaign = campaign;
+
+    self.title = campaign.title;
+    self.ctaLabel.text = campaign.callToAction;
+    self.coverImage.image = campaign.coverImage;
+}
+
 - (void)viewDidLoad {
     [super viewDidLoad];
-    self.client = [DSOClient sharedClient];
     self.isSignedUp = NO;
     self.isCompleted = NO;
     self.actionButton.hidden = YES;
@@ -35,29 +41,29 @@
 - (void)viewDidAppear:(BOOL)animated {
     [super viewDidAppear:animated];
 
-    self.title = self.campaign.title;
-    [self.client getCampaignWithNid:self.campaign.nid completionHandler:^(NSDictionary *response){
-        [self.campaign syncWithDictionary:response];
-        self.ctaLabel.text = self.campaign.callToAction;
-        self.coverImage.image = self.campaign.coverImage;
+    [DSOCampaign campaignWithID:self.campaign.campaignID completion:^(DSOCampaign *campaign, NSError *error) {
+        self.campaign = campaign;
     }];
-    [self.client getCurrentUserActivityWithNid:self.campaign.nid completionHandler:^(NSDictionary *response){
-        if ([response objectForKey:@"sid"]) {
-            self.isSignedUp = YES;
-           [self.actionButton setTitle:@"Prove It" forState:UIControlStateNormal];
+
+    [self.campaign myActivity:^(DSOCampaignActivity *activity, NSError *error) {
+        if(error) {
+            NSLog(@"%@", error.localizedDescription);
+            return;
         }
-        if ([response objectForKey:@"rbid"]) {
+
+        if (activity.hasSignedUp) {
+            self.isSignedUp = YES;
+            [self.actionButton setTitle:@"Prove It" forState:UIControlStateNormal];
+        }
+        if (activity.hasReportedBack) {
             self.isCompleted = YES;
             [self.actionButton setTitle:@"Proved It!" forState:UIControlStateNormal];
         }
         self.actionButton.hidden = NO;
     }];
-    
 }
 
 - (IBAction)actionTapped:(id)sender {
-    NSInteger nid = self.campaign.nid;
-
    if (self.isSignedUp) {
         UINavigationController *rbNavVC = [self.storyboard instantiateViewControllerWithIdentifier:@"reportbackNavigationController"];
         DSOReportbackViewController *destVC = (DSOReportbackViewController *)rbNavVC.topViewController;
@@ -65,17 +71,15 @@
         [self presentViewController:rbNavVC animated:YES completion:nil];
     }
     else {
-        [self.client postSignupForNid:nid
-                        source:@"SlothieBoy Example"
-             completionHandler:^(NSDictionary *response){
-                 [self.actionButton setTitle:@"Prove It" forState:UIControlStateNormal];
-                 self.isSignedUp = YES;
+        [self.campaign signupFromSource:@"SlothieBoy Example" completion:^(NSError *error) {
+            if(error) {
+                NSLog(@"%@", error.localizedDescription);
+                return;
+            }
 
-             }
-                  errorHandler:^(NSError *error){
-                      NSLog(@"%@", error.localizedDescription);
-                  }
-         ];
+            [self.actionButton setTitle:@"Prove It" forState:UIControlStateNormal];
+            self.isSignedUp = YES;
+        }];
     }
 }
 @end

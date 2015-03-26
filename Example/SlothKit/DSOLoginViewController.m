@@ -7,10 +7,9 @@
 //
 
 #import "DSOLoginViewController.h"
-#import "SlothKit/DSOClient.h"
+#import <SlothKit/DSOSession.h>
 
 @interface DSOLoginViewController ()
-@property (strong, nonatomic) DSOClient *client;
 @property (weak, nonatomic) IBOutlet UITextField *usernameTextField;
 @property (weak, nonatomic) IBOutlet UITextField *passwordTextField;
 - (IBAction)submitTapped:(id)sender;
@@ -21,24 +20,19 @@
 
 - (void)viewDidLoad {
     [super viewDidLoad];
-    self.client = [DSOClient sharedClient];
-    NSDictionary *authValues = [self.client getSavedLogin];
-    if ([authValues count] > 0) {
-        self.usernameTextField.text = authValues[@"username"];
-        self.passwordTextField.text = authValues[@"password"];
-    }
+
+    self.usernameTextField.text = [DSOSession lastLoginUsername];
+//    self.passwordTextField.text = authValues[@"password"];
 }
 
 - (IBAction)submitTapped:(id)sender {
     NSString *username = self.usernameTextField.text;
     NSString *password = self.passwordTextField.text;
-    [self.client loginWithUsername:username password:password completionHandler:^(NSDictionary *response){
-        NSLog(@"%@", response);
+    [DSOSession startWithUsername:username password:password success:^(DSOSession *session) {
         UINavigationController *destNavVC = [self.storyboard instantiateViewControllerWithIdentifier:@"campaignListNavigationController"];
         [self presentViewController:destNavVC animated:YES completion:nil];
-        
-    } errorHandler:^(NSError *error){
-        NSLog(@"%@", error.localizedDescription);
+    } failure:^(NSError *error) {
+        NSLog(@"Error logging in: %@", error.localizedDescription);
     }];
 }
 @end

@@ -7,14 +7,12 @@
 //
 
 #import "DSOReportbackViewController.h"
-#import <SlothKit/DSOClient.h>
+#import <SlothKit/DSOSession.h>
 #import "DSOCampaignDetailViewController.h"
 #import <AssetsLibrary/AssetsLibrary.h>
 
 
 @interface DSOReportbackViewController ()
-
-@property (strong, nonatomic) DSOClient *client;
 
 @property (strong, nonatomic) NSString *selectedFilestring;
 @property (strong, nonatomic) NSString *selectedFilename;
@@ -38,7 +36,6 @@
 
 - (void)viewDidLoad {
     [super viewDidLoad];
-    self.client = [DSOClient sharedClient];
     self.quantityLabel.text = [NSString stringWithFormat:@"Number of %@ %@:", self.campaign.reportbackNoun, self.campaign.reportbackVerb];
 
     self.picker = [[UIImagePickerController alloc] init];
@@ -55,7 +52,6 @@
 
         [myAlertView show];
         self.takePhotoButton.hidden = YES;
-
     }
 }
 
@@ -70,19 +66,16 @@
                              @"filename":self.selectedFilename,
                              @"why_participated":self.whyParticipatedTextField.text};
 
-    [self.client postReportbackForNid:self.campaign.nid
-                        values:values
-             completionHandler:^(NSDictionary *response){
-                 [self displayCampaignDetailViewController];
-             }
-                  errorHandler:^(NSError *error){
-                      NSLog(@"%@", error.localizedDescription);
-                  }
-     ];
+    [self.campaign reportbackValues:values completionHandler:^(NSDictionary *response, NSError *error) {
+        if(error) {
+            NSLog(@"%@", error.localizedDescription);
+            return;
+        }
+        [self displayCampaignDetailViewController];
+    }];
 }
 
-- (void) displayCampaignDetailViewController
-{
+- (void)displayCampaignDetailViewController {
     UINavigationController *navVC = [self.storyboard instantiateViewControllerWithIdentifier:@"campaignDetailNavigationController"];
     DSOCampaignDetailViewController *destVC = (DSOCampaignDetailViewController *)navVC.topViewController;
     [destVC setCampaign:self.campaign];
@@ -98,10 +91,10 @@
     self.picker.sourceType = UIImagePickerControllerSourceTypePhotoLibrary;
     [self presentViewController:self.picker animated:YES completion:NULL];
 }
+
 #pragma mark - Image Picker Controller delegate methods
 
 - (void)imagePickerController:(UIImagePickerController *)picker didFinishPickingMediaWithInfo:(NSDictionary *)info {
-
     UIImage *chosenImage = info[UIImagePickerControllerEditedImage];
     self.previewImage.image = chosenImage;
     self.selectedFilestring = [UIImagePNGRepresentation(chosenImage) base64EncodedStringWithOptions:NSDataBase64Encoding64CharacterLineLength];
@@ -130,8 +123,7 @@
 }
 
 - (void)imagePickerControllerDidCancel:(UIImagePickerController *)picker {
-
     [picker dismissViewControllerAnimated:YES completion:NULL];
-
 }
+
 @end

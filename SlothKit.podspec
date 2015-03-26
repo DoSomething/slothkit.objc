@@ -35,4 +35,6 @@ Pod::Spec.new do |s|
   s.frameworks = 'UIKit'
   s.dependency 'AFNetworking', '~> 2.5'
   s.dependency 'SSKeychain', '~> 1.2'
+  s.dependency 'SDWebImage', '~> 3.7.2'
+  s.dependency 'AFNetworkActivityLogger', '~> 2.0.4'
 end

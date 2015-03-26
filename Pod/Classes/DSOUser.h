@@ -12,4 +12,9 @@
 
 - (void)syncWithDictionary:(NSDictionary *)values;
 
+@property (nonatomic, readonly) NSInteger userID;
+@property (nonatomic, readonly) BOOL isAdmin;
+
+@property (nonatomic, strong, readonly) NSString *email;
+
 @end
